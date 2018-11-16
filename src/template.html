@@ -1,0 +1,34 @@
+<div qv-extension>
+  <button id="odagButton" ng-click="onStart()" ng-bind="layout.prop.label" class="lui-button  popover-trigger"></button>
+    <div ng-show="showPopup" class="lui-popover" role="dialog" style="width: 400px;" dock="top">
+      <div class="lui-popover__header">
+        <div ng-bind="templateAppName" class="lui-popover__title"></div>
+      </div>
+      <div class="lui-popover__body odag">
+        <li ng-repeat="app in apps" class="lui-list__item odag">
+          <div id="odagContainer">
+          <span class="lui-list__text odagTop" ng-bind="app.generatedApp.name"></span>
+          <span class="lui-list__text odagBottom">{{app.modifiedDate | date:'medium'}}</span>
+        </div>
+          <span class="lui-list__aside">
+              <a href="{{senseUrl}}{{app.generatedApp.id}}" id="odagHref" ng-show="!creatingApp"><span class="lui-icon  lui-icon--sheet"></span></a>
+              <div class="lds-ring" ng-show="creatingApp && app.generatedApp.id == 0"><div></div><div></div><div></div><div></div></div>
+          </span>
+          <span class="lui-list__aside">
+            <span class="lui-icon  lui-icon--sync" ng-show="refreshingApp != app.id" ng-click="onRefresh(app.id)"></span>
+            <div class="lds-ring" ng-show="refreshingApp == app.id"><div></div><div></div><div></div><div></div></div>
+          </span>
+          <span class="lui-list__aside">
+              <span class="lui-icon  lui-icon--bin" ng-show="deletingApp != app.id" ng-click="onDelete(app.id)" ></span>
+              <div class="lds-ring" ng-show="deletingApp == app.id"><div></div><div></div><div></div><div></div></div>
+          </span>
+        </li>
+      </div>
+
+      <div class="lui-popover__footer">
+        <button ng-click="showPopup = false" class="lui-button  lui-popover__button">Cancel</button>
+        <button ng-click="onReload()" ng-disabled="disableAppGen" class="lui-button  lui-popover__button">Generate New App</button>
+        
+      </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{
+  "server": {
+    "host": "https://dedus-ckh.qliktech.com/",
+    "isSecure": false,
+    "prefix": "hdr",
+    "headers": {
+      "hdr-usr": "QTSEL\\CKG",
+      "cache-control": "no-cache"
+    },
+    "addParams": {
+      "withCredentials": false
+    }
+  },
+  "desktop": {
+    "destination": "C:\\qlikshare\\StaticContent\\Extensions"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "ODAG Variable",
+  "description": "A simple extension which peforms a partial reload before sending an ODAG request",
+  "type": "visualization",
+  "version": "0.1",
+  "author": "Riley MacDonald"
+}
