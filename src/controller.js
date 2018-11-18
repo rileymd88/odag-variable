@@ -104,15 +104,12 @@ export default ['$scope', '$element', function ($scope, $element) {
         enigma.app.doReload(0, true, false).then(function () {
             setTimeout(function () {
                 generateApp($scope.layout.prop.link).then(function (reply) {
-                    setTimeout(function () {
-                        getLinkRequests($scope.layout.prop.link).then(function (linkRequests) {
-                            console.log(linkRequests);
-                            $scope.apps = linkRequests;
-                            $scope.creatingApp = false;
-                            $scope.$apply();
-                        });
-                    }, 2000);
-
+                    console.log(reply);
+                    $scope.apps.splice(-1,1);
+                    reply.generatedApp = JSON.parse(`{"name": "${reply.generatedAppOrigName}"}`);
+                    $scope.apps.push(reply);
+                    console.log(reply);
+                    $scope.creatingApp = false;
                 });
             }, 2000);
         })
@@ -237,12 +234,10 @@ export default ['$scope', '$element', function ($scope, $element) {
                 dataType: "json",
                 success: function (data, status, jqXHR) {
                     resolve(data);
-                    console.log(status, jqXHR);
                 },
                 error: function (jqXHR, status) {
                     // error handler
                     reject(status);
-                    console.log(status, jqXHR);
                 }
             });
         })
@@ -258,12 +253,10 @@ export default ['$scope', '$element', function ($scope, $element) {
                 dataType: "json",
                 success: function (data, status, jqXHR) {
                     resolve(data);
-                    console.log(status, jqXHR);
                 },
                 error: function (jqXHR, status) {
                     // error handler
                     reject(status);
-                    console.log(status, jqXHR);
                 }
             });
         })
@@ -279,12 +272,10 @@ export default ['$scope', '$element', function ($scope, $element) {
                 dataType: "json",
                 success: function (data, status, jqXHR) {
                     resolve(data);
-                    console.log(status, jqXHR);
                 },
                 error: function (jqXHR, status) {
                     // error handler
                     reject(status);
-                    console.log(status, jqXHR);
                 }
             });
         })
