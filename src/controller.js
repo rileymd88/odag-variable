@@ -102,18 +102,16 @@ export default ['$scope', '$element', function ($scope, $element) {
         $scope.apps.push(dummyApp);
         $scope.creatingApp = true;
         enigma.app.doReload(0, true, false).then(function () {
-            setTimeout(function () {
                 generateApp($scope.layout.prop.link).then(function (reply) {
-                    console.log(reply);
-                    $scope.apps.splice(-1,1);
-                    reply.generatedApp = JSON.parse(`{"name": "${reply.generatedAppOrigName}"}`);
-                    $scope.apps.push(reply);
-                    console.log(reply);
-                    $scope.creatingApp = false;
+                        setTimeout(function(){ 
+                            getLinkRequests(reply.link.id).then(function(linkRequests){
+                            $scope.apps = linkRequests;
+                            $scope.creatingApp = false;
+                            $scope.$apply();
+                            })
+                         }, 3500);           
                 });
-            }, 2000);
         })
-
     }
 
     $scope.onDelete = function (id) {
@@ -121,7 +119,6 @@ export default ['$scope', '$element', function ($scope, $element) {
         deleteApp(id).then(function () {
             setTimeout(function () {
                 getLinkRequests($scope.layout.prop.link).then(function (linkRequests) {
-                    console.log(linkRequests);
                     $scope.apps = linkRequests;
                     $scope.deletingApp = null;
                     $scope.$apply();
@@ -150,14 +147,8 @@ export default ['$scope', '$element', function ($scope, $element) {
     // Function to get link requests
     function getLinkRequests(linkId) {
         return new Promise(function (resolve, reject) {
-            $.get(baseUrl + '/links/' + linkId + '/requests', function (linkRequests) {
-                var finalList = [];
-                for (var i = 0; i < linkRequests.length; i++) {
-                    if (linkRequests[i].generatedApp) {
-                        finalList.push(linkRequests[i]);
-                    }
-                }
-                resolve(finalList);
+            $.get(baseUrl + '/links/' + linkId + '/requests', { pending: "true"}, function (linkRequests) {
+                    resolve(linkRequests);
             })
         })
     }
