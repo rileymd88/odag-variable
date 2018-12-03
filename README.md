@@ -18,7 +18,7 @@ Only developers need to use qExt
 * Step 1: Create a new selection App. For this example I am loading data pulled from Twitter related to three Bundesliga teams.
 ![Step 1](https://raw.githubusercontent.com/rileymd88/data/master/odag-variable/Step1.PNG)
 
-* Step 2: Create a variable within the new selection app called "vSearchTerm".
+* Step 2: Create 2 variables within the new selection app one called "vSearchTerm" and another called "vSearchTerm2" with a definition of =Chr(39)&vSearchTerm&Chr(39)
 ![Step 2](https://raw.githubusercontent.com/rileymd88/data/master/odag-variable/Step2.PNG)
 
 * Step 3: Still within the selection app, add a variable input and bind it to the variable we just created.
